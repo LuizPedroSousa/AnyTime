@@ -4,7 +4,6 @@ using MediatR;
 
 namespace AnyTime.CLI.Commands.Jobs;
 
-using AnyTime.CLI.Commands.Jobs.SubCommands;
 using AnyTime.CLI.Commands.Shared;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
 using AnyTime.Core.Application.Features.Jobs.Commands.CreateJob;
