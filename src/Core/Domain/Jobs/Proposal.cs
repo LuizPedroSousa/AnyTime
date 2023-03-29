@@ -9,10 +9,14 @@ public class Proposal : BaseEntity
 
   public Announcement announcement { get; set; }
 
-  public Proposal(int price, string description, Announcement announcement)
+  public Proposal(int price, string description)
   {
     this.price = price;
     this.description = description;
+  }
+
+  public Proposal(int price, string description, Announcement announcement) : this(price, description)
+  {
     this.announcement = announcement;
   }
 }
