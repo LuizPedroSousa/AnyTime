@@ -1,10 +1,10 @@
 using MediatR;
 
-namespace AnyTime.Application.Features.Proposals.Commands.CreateProposal;
+namespace AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
 
 using AnyTime.Core.Domain.Modules.Jobs;
 
-public class CreateProposalsCommand : IRequest<List<Proposal>>
+public class CreateProposalsCommand : IRequest<IReadOnlyList<Proposal>>
 {
   public string platform { get; set; }
   public string proposal_template { get; set; }
