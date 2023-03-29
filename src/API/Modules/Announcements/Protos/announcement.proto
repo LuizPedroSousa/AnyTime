@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "AnyTime.API.Modules.Announcements.Protos";
+
+package announcement;
+
+service AnnouncementContract {
+  rpc List (ListAnnouncementRequest) returns (stream AnnouncementReply);
+  rpc Create (CreateAnnouncementRequest) returns (CreateAnnouncementReply);
+}
+
+message ListAnnouncementRequest {
+
+}
+
+message CreateAnnouncementRequest {
+
+}
+
+message AnnouncementReply{
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message CreateAnnouncementReply {
+  string id = 1;
+  string message = 2;
+}
