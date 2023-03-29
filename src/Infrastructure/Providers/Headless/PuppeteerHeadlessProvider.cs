@@ -1,4 +1,4 @@
-using AnyTime.Core.Application.Contracts.Providers;
+using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider;
 using AnyTime.Core.Application.Models.Headless;
 using AnyTime.Core.Application.Models.Headless.Selectors;
 using Newtonsoft.Json.Linq;
@@ -6,6 +6,7 @@ using PuppeteerSharp;
 using PuppeteerSharp.Input;
 
 namespace AnyTime.Infrastructure.Providers.Headless;
+
 
 public class PuppeteerHeadlessProvider : HeadlessProvider
 {
@@ -25,19 +26,20 @@ public class PuppeteerHeadlessProvider : HeadlessProvider
     },
   };
 
+
   private IPage pageInstance { get; set; }
   private IBrowser browserInstance { get; set; }
 
+
   #region Page commands and queries
-  public async Task open(Open data)
+  public async Task Open(Open data)
   {
     using var browserFetch = new BrowserFetcher();
     await browserFetch.DownloadAsync();
 
-    using var browser = await Puppeteer.LaunchAsync(getLaunchOptions(headless: data.headless));
+    var browser = await Puppeteer.LaunchAsync(getLaunchOptions(headless: data.headless));
 
-    browserInstance = browser;
-    pageInstance = await browserInstance.NewPageAsync();
+    pageInstance = await browser.NewPageAsync();
 
     await pageInstance.SetUserAgentAsync("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36");
     await pageInstance.SetExtraHttpHeadersAsync(
@@ -45,6 +47,17 @@ public class PuppeteerHeadlessProvider : HeadlessProvider
         {"accept-language", "en-US,en;q=0.9,hy;q=0.8"}
       }
     );
+  }
+
+  private void Reset()
+  {
+    this.pageInstance = null;
+    this.browserInstance = null;
+  }
+
+  public async Task Close()
+  {
+    Reset();
   }
 
   public async Task GoTo(GoTo data)
@@ -79,7 +92,7 @@ public class PuppeteerHeadlessProvider : HeadlessProvider
 
     await page.WaitForSelectorAsync(
        iframeSelector,
-  waitForOptions
+       waitForOptions
   );
 
     var iframeHandle = await page.QuerySelectorAsync(iframeSelector);
@@ -437,5 +450,6 @@ public class PuppeteerHeadlessProvider : HeadlessProvider
       return default(IEnumerable<T>);
     }
   }
+
   #endregion
 }
