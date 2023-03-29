@@ -20,7 +20,7 @@ public class MarkdigMarkdownProvider : MarkdownProvider
 
   public async Task Write(WriteModel model)
   {
-    await File.WriteAllTextAsync($"documents/{model.path}", model.content);
+    Directory.CreateDirectory($"documents/{model.folder}");
+    await File.WriteAllTextAsync($"documents/{model.folder}/{model.filename}", model.content);
   }
-
 }
