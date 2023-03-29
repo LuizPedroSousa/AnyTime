@@ -12,6 +12,7 @@ public class BaseEntity
 
   public string id { get; set; }
   public DateTime createdAt { get; set; }
+  public DateTime updatedAt { get; set; }
 
 
 }

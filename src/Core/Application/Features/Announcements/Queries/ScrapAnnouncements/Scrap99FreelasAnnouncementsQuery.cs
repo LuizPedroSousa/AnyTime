@@ -1,7 +1,8 @@
-using AnyTime.Core.Domain.Modules.Jobs;
 using MediatR;
 
-namespace AnyTime.Application.Features.Announcements.Query.ScrapAnnouncements;
+namespace AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
+
+using AnyTime.Core.Domain.Modules.Jobs;
 
 public class Scrap99FreelasAnnouncementsQuery : IRequest<List<Announcement>>
 {

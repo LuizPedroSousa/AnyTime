@@ -11,6 +11,20 @@ public class Announcement : BaseEntity
   public string url { get; set; }
   public Author author { get; set; }
 
+  public Announcement(string title, string description, List<string> tags, string url)
+  {
+    this.title = title;
+    this.description = description;
+    this.tags = tags;
+    this.url = url;
+    this.author = author;
+  }
+
+  public Announcement(string title, string description, List<string> tags, string url, Author author) : this(title, description, tags, url)
+  {
+    this.author = author;
+  }
+
   public override string ToString()
   {
     return $@"
@@ -21,14 +35,17 @@ public class Announcement : BaseEntity
       ";
   }
 
-  public static string ToString(List<Announcement> announcements)
+
+
+
+  public static string ToString(List<Announcement> announcements, int from, int to)
   {
     var result = "";
 
-    foreach (Announcement announcement in announcements)
+    for (int i = from; i < to; i++)
     {
       result += $@"
-      {announcement.ToString()}
+      {announcements[i].ToString()}
       ";
     }
 

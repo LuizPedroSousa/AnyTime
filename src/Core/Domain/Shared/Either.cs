@@ -20,9 +20,9 @@ public class Either<L, R> where L : BaseException
   }
 
 
-  public bool IsRight() => left is L && right is null;
-  public bool IsLeft() => right is R && left is null;
+  public bool IsLeft() => left is L && right is null;
+  public bool IsRight() => right is R && left is null;
 
-  public static implicit operator Either<L, R>(R result) => new Either<L, R>(result);
   public static implicit operator Either<L, R>(L exception) => new Either<L, R>(exception);
+  public static implicit operator Either<L, R>(R result) => new Either<L, R>(result);
 }
