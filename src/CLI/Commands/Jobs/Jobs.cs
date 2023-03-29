@@ -4,6 +4,7 @@ using MediatR;
 
 namespace AnyTime.CLI.Commands.Jobs;
 
+using AnyTime.CLI.Commands.Jobs.SubCommands;
 using AnyTime.CLI.Commands.Shared;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
 using AnyTime.Core.Application.Features.Jobs.Commands.CreateJob;
@@ -11,6 +12,7 @@ using AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
 using AnyTime.Core.Domain.Modules.Jobs;
 
 [Command("jobs")]
+[Subcommand(typeof(PullSubCommand))]
 public class JobsCommand : BaseCommand
 {
   private readonly IMediator _mediator;
