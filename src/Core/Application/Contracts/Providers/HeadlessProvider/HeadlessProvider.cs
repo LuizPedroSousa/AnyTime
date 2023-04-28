@@ -1,18 +1,23 @@
+using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Actions;
+using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Selectors;
+using AnyTime.Core.Application.Models.Headless;
+using AnyTime.Core.Domain.Shared;
+
 namespace AnyTime.Core.Application.Contracts.Providers.HeadlessProvider;
 
-using AnyTime.Core.Application.Models.Headless;
-using AnyTime.Core.Application.Models.Headless.Selectors;
 
 public interface HeadlessProvider
 {
   Task Open(Open data);
   Task Close();
   Task GoTo(GoTo data);
-  Task<bool> Click(Click data);
-  Task<bool> FillInput(FillInput data);
-  Task<bool> GetElement(GetElement data);
-  Task<IEnumerable<T>> GetElementsByEvaluateFunction<T>(GetElementsByEvaluateFunction data) where T : class;
-  Task<string?> GetText(GetText data);
-  Task<string?> GetAttribute(GetAttribute data);
+  Task Click(Click data);
+  Task FillInput(FillInput data);
   Task Reload();
+
+  Task<Either<BaseException, Element>> GetElement(GetElement data);
+  Task<IEnumerable<T>> GetAllByFunctionEvaluation<T>(GetAllByFunctionEvaluation dto) where T : class;
+  Task<Either<BaseException, string>> GetText(GetText data);
+  Task<Either<BaseException, string>> GetAttribute(GetAttribute data);
+  Task<bool> ElementExists(GetElement dto);
 }
