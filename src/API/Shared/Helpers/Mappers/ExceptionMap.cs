@@ -5,12 +5,21 @@ namespace AnyTime.API.Shared.Helpers.Mappers;
 
 public static class MapException
 {
+  private static object MapResponse(BaseException exception)
+  {
+    return new
+    {
+      statusCode = exception.status,
+      message = exception.message
+    };
+  }
+
   public static IActionResult MapResult(BaseException exception)
   {
     return exception.status switch
     {
-      StatusException.BadRequest => new BadRequestObjectResult(exception.message),
-      StatusException.NotFound => new NotFoundObjectResult(exception.message)
+      StatusException.BadRequest => new BadRequestObjectResult(MapResponse(exception)),
+      StatusException.NotFound => new NotFoundObjectResult(MapResponse(exception))
     };
   }
 }
