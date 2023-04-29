@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnyTime.Infrastructure.Persistence.DatabaseContext;
@@ -6,6 +5,7 @@ namespace AnyTime.Infrastructure.Persistence.DatabaseContext;
 using System.Threading;
 using System.Threading.Tasks;
 using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Shared;
 
 public class PersistenceDatabaseContext : DbContext
@@ -16,6 +16,7 @@ public class PersistenceDatabaseContext : DbContext
   public DbSet<Author> authors { get; set; }
   public DbSet<Announcement> announcements { get; set; }
   public DbSet<Proposal> proposals { get; set; }
+  public DbSet<Platform> platforms { get; set; }
 
   public PersistenceDatabaseContext(DbContextOptions<PersistenceDatabaseContext> options) : base(options)
   {

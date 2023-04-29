@@ -21,6 +21,7 @@ public static class PersistenceServicesRegistration
     services.AddScoped<ProposalsRepository, EFCoreProposalsRepository>();
     services.AddScoped<AnnouncementsRepository, EFCoreAnnouncementsRepository>();
     services.AddScoped<JobsRepository, EFCoreJobsRepository>();
+    services.AddScoped<PlatformsRepository, EFCorePlatformsRepository>();
 
     return services;
   }
