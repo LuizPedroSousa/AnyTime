@@ -7,6 +7,7 @@ using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Actions
 using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Selectors;
 using AnyTime.Core.Application.Contracts.Repositories;
 using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Platforms;
 
 public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99FreelasAnnouncementsQuery, List<Announcement>>
 {
@@ -28,9 +29,7 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
        headless = false
      });
 
-
-
-    var existentLinks = await _announcementsRepository.GetUrlsByPlatform(AnnouncementPlatform.NineNineFreelas);
+    var existentLinks = await _announcementsRepository.GetUrlsByPlatform(request.platform);
 
     var links = new List<string>();
 
@@ -39,7 +38,7 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
       links.AddRange(await GetAnnoucementsUrls(existentLinks: existentLinks.Union(links).ToList(), queryParams: $"&page={i}"));
     }
 
-    var announcements = await GetAnnouncementsByLinks(links);
+    var announcements = await GetAnnouncementsByLinks(request.platform, links);
 
     await this._headlessProvider.Close();
 
@@ -82,7 +81,7 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
   }
 
 
-  private async Task<List<Announcement>> GetAnnouncementsByLinks(List<string> links)
+  private async Task<List<Announcement>> GetAnnouncementsByLinks(Platform platform, List<string> links)
   {
     var container = "body > div.page-simple-wrapper > div.page-simple-content > div.box-project-view > div.box-project-view-top > div > div.box-project-view-principal.with-flag";
 
@@ -123,7 +122,7 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
                                          new List<string>(),
                                          link,
                                          new Author("-", "-"),
-                                         AnnouncementPlatform.NineNineFreelas));
+                                         platform));
     };
 
     return announcements;

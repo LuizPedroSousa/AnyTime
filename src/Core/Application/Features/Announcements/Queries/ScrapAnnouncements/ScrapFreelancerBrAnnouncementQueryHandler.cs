@@ -121,7 +121,7 @@ public class ScrapFreelancerBrAnnouncementQueryHandler : IRequestHandler<ScrapFr
       tagsExists.right.Split(@",", StringSplitOptions.RemoveEmptyEntries).ToList(),
       request.url,
       new Author(authorNameExists.right, "-"),
-      AnnouncementPlatform.FreelancerBR,
+      request.platform,
       DateTime.Parse(publishedAtExists.right).ToUniversalTime()
     );
   }
