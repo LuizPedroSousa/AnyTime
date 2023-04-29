@@ -1,6 +1,4 @@
 using AnyTime.API.Shared.Helpers.Mappers;
-using AnyTime.Core.Application.Features.Announcements.Queries.GetAnnouncement;
-using AnyTime.Core.Application.Features.Announcements.Queries.ListAnnouncements;
 using AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal;
 using AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal.Responses;
 using AnyTime.Core.Application.Features.Proposals.Queries.ListProposals;

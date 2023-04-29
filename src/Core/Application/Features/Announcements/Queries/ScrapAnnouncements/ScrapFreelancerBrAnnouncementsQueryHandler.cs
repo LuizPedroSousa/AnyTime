@@ -7,6 +7,7 @@ using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Actions
 using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Selectors;
 using AnyTime.Core.Application.Contracts.Repositories;
 using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Platforms;
 
 public class ScrapFreelancerBrAnnouncementsQueryHandler : IRequestHandler<ScrapFreelancerBrAnnouncementsQuery, IReadOnlyList<Announcement>>
 {
@@ -31,7 +32,7 @@ public class ScrapFreelancerBrAnnouncementsQueryHandler : IRequestHandler<ScrapF
   {
     await _headlessProvider.Open(new Open { headless = request.headless });
 
-    var existentLinks = await _announcementsRepository.GetUrlsByPlatform(AnnouncementPlatform.FreelancerBR);
+    var existentLinks = await _announcementsRepository.GetUrlsByPlatform(request.platform);
 
     var links = new List<string>();
 
@@ -42,7 +43,7 @@ public class ScrapFreelancerBrAnnouncementsQueryHandler : IRequestHandler<ScrapF
 
     await this._headlessProvider.Close();
 
-    var announcements = await GetAnnouncementsByLinks(links);
+    var announcements = await GetAnnouncementsByLinks(request.platform, links);
 
     return announcements;
 
@@ -84,14 +85,13 @@ public class ScrapFreelancerBrAnnouncementsQueryHandler : IRequestHandler<ScrapF
   }
 
 
-  private async Task<List<Announcement>> GetAnnouncementsByLinks(List<string> urls)
+  private async Task<List<Announcement>> GetAnnouncementsByLinks(Platform platform, List<string> urls)
   {
-
     var announcements = new List<Announcement>();
 
     foreach (var url in urls)
     {
-      var announcementExists = await _mediator.Send(new ScrapFreelancerBrAnnouncementQuery { url = url });
+      var announcementExists = await _mediator.Send(new ScrapFreelancerBrAnnouncementQuery { url = url, platform = platform });
 
       if (announcementExists.IsLeft())
       {
@@ -103,5 +103,4 @@ public class ScrapFreelancerBrAnnouncementsQueryHandler : IRequestHandler<ScrapF
 
     return announcements;
   }
-
 }

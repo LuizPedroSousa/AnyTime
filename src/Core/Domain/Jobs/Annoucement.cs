@@ -1,12 +1,7 @@
 namespace AnyTime.Core.Domain.Modules.Jobs;
 
+using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Shared;
-
-public enum AnnouncementPlatform
-{
-  NineNineFreelas,
-  FreelancerBR
-}
 
 public enum AnnouncementStatus
 {
@@ -20,18 +15,18 @@ public class Announcement : BaseEntity
   public string title { get; set; }
   public string description { get; set; }
   public List<string> tags { get; set; }
-
-  public AnnouncementStatus status { get; set; }
-
   public string url { get; set; }
+  public AnnouncementStatus status { get; set; }
   public Author author { get; set; }
-
-
-  public AnnouncementPlatform platform { get; set; }
-
+  public Platform platform { get; set; }
   public DateTime publishedAt { get; set; }
+  public string full_url => platform?.url + url;
 
-  public Announcement(string title, string description, List<string> tags, string url, AnnouncementPlatform platform)
+  public Announcement()
+  {
+  }
+
+  public Announcement(string title, string description, List<string> tags, string url, Platform platform)
   {
     this.title = title;
     this.description = description;
@@ -41,18 +36,18 @@ public class Announcement : BaseEntity
     this.platform = platform;
   }
 
-  public Announcement(string title, string description, AnnouncementStatus status, List<string> tags, string url, AnnouncementPlatform platform) : this(title, description, tags, url, platform)
+  public Announcement(string title, string description, AnnouncementStatus status, List<string> tags, string url, Platform platform) : this(title, description, tags, url, platform)
   {
     this.status = status;
   }
 
 
-  public Announcement(string title, string description, List<string> tags, string url, Author author, AnnouncementPlatform platform) : this(title, description, tags, url, platform)
+  public Announcement(string title, string description, List<string> tags, string url, Author author, Platform platform) : this(title, description, tags, url, platform)
   {
     this.author = author;
   }
 
-  public Announcement(string title, string description, AnnouncementStatus status, List<string> tags, string url, Author author, AnnouncementPlatform platform, DateTime publishedAt)
+  public Announcement(string title, string description, AnnouncementStatus status, List<string> tags, string url, Author author, Platform platform, DateTime publishedAt)
   {
     this.title = title;
     this.description = description;
@@ -74,9 +69,6 @@ public class Announcement : BaseEntity
       ";
   }
 
-
-
-
   public static string ToString(List<Announcement> announcements, int from, int to)
   {
     var result = "";
@@ -90,5 +82,4 @@ public class Announcement : BaseEntity
 
     return result;
   }
-
 }
