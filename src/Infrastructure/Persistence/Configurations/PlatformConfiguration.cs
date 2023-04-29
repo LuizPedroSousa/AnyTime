@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace AnyTime.Infrastructure.Persistence.Configurations;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Modules.Platforms;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

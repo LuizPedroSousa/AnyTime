@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnyTime.Infrastructure.Persistence.Repositories;
 
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 using AnyTime.Core.Domain.Shared;
 using AnyTime.Infrastructure.Persistence.DatabaseContext;
 
