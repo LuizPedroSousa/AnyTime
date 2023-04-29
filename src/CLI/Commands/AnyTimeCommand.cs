@@ -1,6 +1,5 @@
 using System.Reflection;
 using AnyTime.CLI.Commands.Announcements;
-using AnyTime.CLI.Commands.Jobs;
 using AnyTime.CLI.Commands.Shared;
 using McMaster.Extensions.CommandLineUtils;
 
