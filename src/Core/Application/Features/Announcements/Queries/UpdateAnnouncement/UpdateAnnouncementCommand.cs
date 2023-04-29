@@ -1,4 +1,4 @@
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using MediatR;
 
 namespace AnyTime.Core.Application.Features.Announcements.Commands.UpdateAnnouncement;

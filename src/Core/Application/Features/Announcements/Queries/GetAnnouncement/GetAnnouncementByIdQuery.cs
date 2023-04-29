@@ -1,4 +1,4 @@
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Shared;
 using MediatR;
 

@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using AnyTime.Core.Application.Contracts.Providers.MarkdownProvider;
 using AnyTime.Core.Application.Contracts.Providers.NLPProvider;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using MediatR;
 
 namespace AnyTime.Core.Application.Features.Announcements.Queries.FilterAnnouncements;

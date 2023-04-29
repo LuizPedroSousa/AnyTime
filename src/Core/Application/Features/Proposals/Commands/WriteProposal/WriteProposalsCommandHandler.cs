@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AnyTime.Core.Application.Contracts.Providers.MarkdownProvider;
 using AnyTime.Core.Application.Contracts.Providers.MarkdownProvider.Models;
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 
 public class CreateProposalsCommandHandler : IRequestHandler<WriteProposalsCommand, Unit>
 {

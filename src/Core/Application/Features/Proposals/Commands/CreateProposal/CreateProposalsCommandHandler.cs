@@ -5,7 +5,8 @@ namespace AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
 using AnyTime.Core.Application.Contracts.Providers.MarkdownProvider;
 using AnyTime.Core.Application.Contracts.Providers.NLPProvider;
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
+using AnyTime.Core.Domain.Modules.Proposals;
 
 public class CreateProposalsCommandHandler : IRequestHandler<CreateProposalsCommand, IReadOnlyList<Proposal>>
 {

@@ -3,7 +3,7 @@ using MediatR;
 namespace AnyTime.Core.Application.Features.Proposals.Queries.ListProposals;
 
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 
 public class ListProposalsQueryHandler : IRequestHandler<ListProposalsQuery, IReadOnlyList<Proposal>>
 {
