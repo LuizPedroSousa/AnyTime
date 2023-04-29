@@ -1,6 +1,6 @@
 namespace AnyTime.Core.Application.Contracts.Repositories;
 
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 
 public interface ProposalsRepository : GenericRepository<Proposal>
 {

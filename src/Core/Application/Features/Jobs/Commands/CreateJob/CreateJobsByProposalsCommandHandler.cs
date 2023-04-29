@@ -1,9 +1,9 @@
 
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using MediatR;
 
-namespace AnyTime.Core.Application.Features.Jobs.Commands.CreateJob;
+namespace AnyTime.Core.Application.Features.Announcements.Commands.CreateJob;
 
 public class CreateJobsByProposalsCommandHandler : IRequestHandler<CreateJobsByProposalsCommand, Unit>
 {

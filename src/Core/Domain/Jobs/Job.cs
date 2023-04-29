@@ -1,6 +1,7 @@
+using AnyTime.Core.Domain.Modules.Proposals;
 using AnyTime.Core.Domain.Shared;
 
-namespace AnyTime.Core.Domain.Modules.Jobs;
+namespace AnyTime.Core.Domain.Modules.Announcements;
 
 public enum JobStatus
 {

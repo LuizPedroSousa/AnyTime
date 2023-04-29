@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
 
       NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Announcement", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Announcements.Announcement", b =>
           {
             b.Property<string>("id")
                       .HasColumnType("text");
@@ -68,7 +68,7 @@ namespace Infrastructure.Migrations
             b.ToTable("announcements");
           });
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Author", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Announcements.Author", b =>
           {
             b.Property<string>("id")
                       .HasColumnType("text");
@@ -114,7 +114,7 @@ namespace Infrastructure.Migrations
             b.ToTable("jobs");
           });
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Proposal", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Proposals.Propsal", b =>
           {
             b.Property<string>("id")
                       .HasColumnType("text");
@@ -141,9 +141,9 @@ namespace Infrastructure.Migrations
             b.ToTable("proposals");
           });
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Announcement", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Announcements.Announcement", b =>
           {
-            b.HasOne("AnyTime.Core.Domain.Modules.Jobs.Author", "author")
+            b.HasOne("AnyTime.Core.Domain.Modules.Announcements.Author", "author")
                       .WithMany("announcements")
                       .HasForeignKey("authorid");
 
@@ -152,23 +152,23 @@ namespace Infrastructure.Migrations
 
       modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Job", b =>
           {
-            b.HasOne("AnyTime.Core.Domain.Modules.Jobs.Proposal", "proposal")
+            b.HasOne("AnyTime.Core.Domain.Modules.Proposals.Propsal", "proposal")
                       .WithMany()
                       .HasForeignKey("proposalid");
 
             b.Navigation("proposal");
           });
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Proposal", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Proposals.Propsal", b =>
           {
-            b.HasOne("AnyTime.Core.Domain.Modules.Jobs.Announcement", "announcement")
+            b.HasOne("AnyTime.Core.Domain.Modules.Announcements.Announcement", "announcement")
                       .WithMany()
                       .HasForeignKey("announcementid");
 
             b.Navigation("announcement");
           });
 
-      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Jobs.Author", b =>
+      modelBuilder.Entity("AnyTime.Core.Domain.Modules.Announcements.Author", b =>
           {
             b.Navigation("announcements");
           });

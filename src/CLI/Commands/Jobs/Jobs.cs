@@ -1,17 +1,18 @@
 using McMaster.Extensions.CommandLineUtils;
 using MediatR;
 
-namespace AnyTime.CLI.Commands.Jobs;
+namespace AnyTime.CLI.Commands.Announcements;
 
 using System.ComponentModel.DataAnnotations;
-using AnyTime.CLI.Commands.Jobs.SubCommands;
+using AnyTime.CLI.Commands.Announcements.SubCommands;
 using AnyTime.CLI.Commands.Shared;
+using AnyTime.Core.Application.Features.Announcements.Commands.CreateJob;
 using AnyTime.Core.Application.Features.Announcements.Queries.FilterAnnouncements;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
-using AnyTime.Core.Application.Features.Jobs.Commands.CreateJob;
 using AnyTime.Core.Application.Features.Platforms.Queries;
 using AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
+using AnyTime.Core.Domain.Modules.Proposals;
 
 [Command("jobs")]
 [Subcommand(typeof(PullSubCommand))]

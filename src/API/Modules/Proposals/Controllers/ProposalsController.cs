@@ -2,7 +2,7 @@ using AnyTime.API.Shared.Helpers.Mappers;
 using AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal;
 using AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal.Responses;
 using AnyTime.Core.Application.Features.Proposals.Queries.ListProposals;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

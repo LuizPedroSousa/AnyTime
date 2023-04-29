@@ -4,7 +4,7 @@ using AnyTime.Core.Application.Features.Announcements.Commands.UpdateAnnouncemen
 using AnyTime.Core.Application.Features.Announcements.Queries.ListAnnouncements;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
 using AnyTime.Core.Application.Features.Platforms.Queries;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Shared;
 using McMaster.Extensions.CommandLineUtils;

@@ -1,4 +1,4 @@
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 using AutoMapper;
 
 namespace AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal.Mappings;

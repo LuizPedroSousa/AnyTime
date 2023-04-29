@@ -1,4 +1,4 @@
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 
 namespace AnyTime.Core.Application.Contracts.Repositories;
 

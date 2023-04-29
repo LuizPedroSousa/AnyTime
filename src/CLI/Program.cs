@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using AnyTime.CLI.Commands;
+﻿using AnyTime.CLI.Commands;
 using AnyTime.Core.Application;
 using AnyTime.Infrastructure;
 using Microsoft.Extensions.Configuration;

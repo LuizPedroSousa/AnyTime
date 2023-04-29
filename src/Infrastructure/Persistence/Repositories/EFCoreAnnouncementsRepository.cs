@@ -2,7 +2,7 @@ namespace AnyTime.Core.Application.Contracts.Repositories;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Shared;
 using AnyTime.Infrastructure.Persistence.DatabaseContext;

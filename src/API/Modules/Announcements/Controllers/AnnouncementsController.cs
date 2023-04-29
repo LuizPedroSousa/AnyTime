@@ -1,9 +1,8 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using AnyTime.API.Modules.Announcements.Controllers.DTOs;
 using AnyTime.API.Shared.Helpers.Mappers;
 using AnyTime.Core.Application.Features.Announcements.Queries.GetAnnouncement;
 using AnyTime.Core.Application.Features.Announcements.Queries.ListAnnouncements;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,19 +15,22 @@ public class AnnouncementsController : ControllerBase
   private readonly ILogger<AnnouncementsController> _logger;
   private readonly IMediator _mediator;
 
-  public AnnouncementsController(ILogger<AnnouncementsController> logger, IMediator mediator)
+
+  private readonly IMapper _mapper;
+
+  public AnnouncementsController(ILogger<AnnouncementsController> logger, IMediator mediator, IMapper mapper)
   {
     _logger = logger;
     _mediator = mediator;
+    _mapper = mapper;
   }
 
-
   [HttpGet()]
-  public async Task<IReadOnlyList<Announcement>> GetAll()
+  public async Task<List<AnnouncementDTO>> GetAll()
   {
     var announcements = await _mediator.Send(new ListAnnouncementsQuery());
 
-    return announcements;
+    return announcements.ToList().ConvertAll(element => _mapper.Map<AnnouncementDTO>(element));
   }
 
   [HttpGet("{id}")]
@@ -42,6 +44,6 @@ public class AnnouncementsController : ControllerBase
     }
 
 
-    return Ok(announcementOrError.right);
+    return Ok(_mapper.Map<AnnouncementDTO>(announcementOrError.right));
   }
 }

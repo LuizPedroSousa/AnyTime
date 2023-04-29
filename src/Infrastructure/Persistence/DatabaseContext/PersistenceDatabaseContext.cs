@@ -4,8 +4,9 @@ namespace AnyTime.Infrastructure.Persistence.DatabaseContext;
 
 using System.Threading;
 using System.Threading.Tasks;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Modules.Platforms;
+using AnyTime.Core.Domain.Modules.Proposals;
 using AnyTime.Core.Domain.Shared;
 
 public class PersistenceDatabaseContext : DbContext

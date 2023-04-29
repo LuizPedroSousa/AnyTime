@@ -1,11 +1,12 @@
 using AnyTime.CLI.Commands.Shared;
 using AnyTime.Core.Application.Features.Proposals.Commands.WriteProposals;
 using AnyTime.Core.Application.Features.Proposals.Queries.ListProposals;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
+using AnyTime.Core.Domain.Modules.Proposals;
 using McMaster.Extensions.CommandLineUtils;
 using MediatR;
 
-namespace AnyTime.CLI.Commands.Jobs.SubCommands;
+namespace AnyTime.CLI.Commands.Announcements.SubCommands;
 
 
 [Command("pull")]

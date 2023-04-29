@@ -3,7 +3,7 @@ using MediatR;
 namespace AnyTime.Core.Application.Features.Announcements.Queries.ListAnnouncements;
 
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 
 public class ListAnnouncementsQueryHandler : IRequestHandler<ListAnnouncementsQuery, IReadOnlyList<Announcement>>
 {
@@ -15,6 +15,6 @@ public class ListAnnouncementsQueryHandler : IRequestHandler<ListAnnouncementsQu
 
   public async Task<IReadOnlyList<Announcement>> Handle(ListAnnouncementsQuery request, CancellationToken cancellationToken)
   {
-    return await _announcementsRepository.Get();
+    return await _announcementsRepository.GetWithPlatform();
   }
 }

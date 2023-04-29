@@ -1,3 +1,4 @@
+using System.Reflection;
 using AnyTime.Core.Application;
 using AnyTime.Infrastructure;
 
@@ -25,6 +26,8 @@ builder.Services.AddCors(
     });
   }
 );
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

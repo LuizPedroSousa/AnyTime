@@ -3,7 +3,7 @@ using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider;
 using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Actions;
 using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Selectors;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Shared;
 using MediatR;
 

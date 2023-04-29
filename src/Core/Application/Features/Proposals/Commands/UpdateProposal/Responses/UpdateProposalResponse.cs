@@ -1,6 +1,6 @@
 namespace AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal.Responses;
 
-using AnyTime.Core.Domain.Modules.Jobs;
+using AnyTime.Core.Domain.Modules.Proposals;
 using AnyTime.Core.Domain.Shared;
 
 public class UpdateProposalResponse : Either<BaseException, Proposal>

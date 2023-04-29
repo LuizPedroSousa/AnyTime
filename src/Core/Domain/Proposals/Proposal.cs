@@ -1,5 +1,6 @@
-namespace AnyTime.Core.Domain.Modules.Jobs;
+namespace AnyTime.Core.Domain.Modules.Proposals;
 
+using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Shared;
 
 public class Proposal : BaseEntity
