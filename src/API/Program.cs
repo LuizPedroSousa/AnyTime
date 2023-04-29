@@ -1,31 +1,46 @@
-using System.Reflection;
-using AnyTime.API.Modules.Proposals.Services;
 using AnyTime.Core.Application;
 using AnyTime.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-
-
-builder.Services.ConfigureApplicationServices();
-builder.Services.ConfigureInfrastructureServices(builder.Configuration);
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Add services to the container.
-builder.Services.AddGrpc();
 
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+builder.Services.ConfigureApplicationServices();
+
+builder.Services.AddCors(
+  options =>
+  {
+    options.AddPolicy("policy", policy =>
+    {
+      policy.AllowAnyOrigin();
+      policy.AllowAnyMethod();
+      policy.AllowAnyHeader();
+    });
+  }
+);
 
 var app = builder.Build();
 
-Environment.SetEnvironmentVariable("GRPC_VERBOSITY", "DEBUG");
-Environment.SetEnvironmentVariable("GRPC_TRACE", "api,cares_resolver,cares_address_sorting");
-
 // Configure the HTTP request pipeline.
-app.MapGrpcService<ProposalService>();
+if (app.Environment.IsDevelopment())
+{
+  app.UseSwagger();
+  app.UseSwaggerUI();
+}
 
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.UseCors("policy");
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
