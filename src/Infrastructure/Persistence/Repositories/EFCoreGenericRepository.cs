@@ -6,14 +6,17 @@ using AnyTime.Core.Domain.Shared;
 using AnyTime.Infrastructure.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-public class EFCoreGenericRepository<E, T> : GenericRepository<E, T> where E : BaseException, new() where T : BaseEntity
+public class EFCoreGenericRepository<T> : GenericRepository<T> where T : BaseEntity
 {
 
   protected readonly PersistenceDatabaseContext _context;
 
-  public EFCoreGenericRepository(PersistenceDatabaseContext context)
+  protected readonly NotFoundException _exception;
+
+  public EFCoreGenericRepository(PersistenceDatabaseContext context, NotFoundException exception)
   {
     _context = context;
+    _exception = exception;
   }
 
   public async Task Create(T entity)
@@ -40,14 +43,14 @@ public class EFCoreGenericRepository<E, T> : GenericRepository<E, T> where E : B
     return await this._context.Set<T>().AsNoTracking().ToListAsync();
   }
 
-  public async Task<Either<E, T>> GetById(string id)
+  public async Task<Either<NotFoundException, T>> GetById(string id)
   {
     var entityExists = await this._context.Set<T>().AsNoTracking().FirstOrDefaultAsync(entity => entity.id == id);
 
 
     if (entityExists is null)
     {
-      return new E();
+      return _exception;
     }
 
 
