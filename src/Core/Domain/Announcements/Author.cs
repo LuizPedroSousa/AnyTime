@@ -1,4 +1,4 @@
-namespace AnyTime.Core.Domain.Modules.Jobs;
+namespace AnyTime.Core.Domain.Modules.Announcements;
 
 using System.Text.Json.Serialization;
 using AnyTime.Core.Domain.Shared;

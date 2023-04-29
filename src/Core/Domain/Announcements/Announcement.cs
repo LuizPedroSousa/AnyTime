@@ -1,4 +1,4 @@
-namespace AnyTime.Core.Domain.Modules.Jobs;
+namespace AnyTime.Core.Domain.Modules.Announcements;
 
 using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Shared;
