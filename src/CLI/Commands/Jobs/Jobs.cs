@@ -1,14 +1,15 @@
-using System.Reflection;
 using McMaster.Extensions.CommandLineUtils;
 using MediatR;
 
 namespace AnyTime.CLI.Commands.Jobs;
 
+using System.ComponentModel.DataAnnotations;
 using AnyTime.CLI.Commands.Jobs.SubCommands;
 using AnyTime.CLI.Commands.Shared;
 using AnyTime.Core.Application.Features.Announcements.Queries.FilterAnnouncements;
 using AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
 using AnyTime.Core.Application.Features.Jobs.Commands.CreateJob;
+using AnyTime.Core.Application.Features.Platforms.Queries;
 using AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
 using AnyTime.Core.Domain.Modules.Jobs;
 
@@ -22,11 +23,23 @@ public class JobsCommand : BaseCommand
     _mediator = mediator;
   }
 
-  private static string GetVersion() => typeof(AnyTimeCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+
+  [Required(ErrorMessage = "Platform name must be provided")]
+  [Option("-p|--platform", Description = "Platform name")]
+  public string platform_name { get; set; }
 
   protected async override Task<int> OnExecute(CommandLineApplication app)
   {
-    var announcements = await _mediator.Send<IReadOnlyList<Announcement>>(new ScrapFreelancerBrAnnouncementsQuery { headless = false });
+
+    var platformExists = await _mediator.Send(new GetPlatformByNameQuery { name = platform_name });
+
+    if (platformExists.IsLeft())
+    {
+      Console.WriteLine(platformExists.left.message);
+      return await base.OnExecute(app);
+    }
+
+    var announcements = await _mediator.Send<IReadOnlyList<Announcement>>(new ScrapFreelancerBrAnnouncementsQuery { headless = false, platform = platformExists.right });
 
     var filteredAnnouncements = await _mediator.Send<IReadOnlyList<Announcement>>(new FilterAnnouncementsListWithNLPQuery { announcements = announcements });
 
