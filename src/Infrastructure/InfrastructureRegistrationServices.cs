@@ -15,7 +15,7 @@ public static class InfrastructureRegistrationServices
 {
   public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
-    services.AddTransient<HeadlessProvider, PuppeteerHeadlessProvider>();
+    services.AddScoped<HeadlessProvider, PuppeteerHeadlessProvider>();
     services.AddScoped<MarkdownProvider, MarkdigMarkdownProvider>();
     services.AddScoped<NLPProvider, GPTNLPProvider>();
     services.ConfigurePersistenceServices(configuration);
