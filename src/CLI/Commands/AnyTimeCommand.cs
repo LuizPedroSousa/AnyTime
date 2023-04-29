@@ -1,4 +1,5 @@
 using System.Reflection;
+using AnyTime.CLI.Commands.Announcements;
 using AnyTime.CLI.Commands.Jobs;
 using AnyTime.CLI.Commands.Shared;
 using McMaster.Extensions.CommandLineUtils;
@@ -7,6 +8,7 @@ namespace AnyTime.CLI.Commands;
 
 [Command("AnyTime")]
 [Subcommand(typeof(JobsCommand))]
+[Subcommand(typeof(AnnouncementsCommand))]
 public class AnyTimeCommand : BaseCommand
 {
 

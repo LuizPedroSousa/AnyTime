@@ -1,12 +1,11 @@
-using System.Text.Json;
 using MediatR;
 
 namespace AnyTime.Core.Application.Features.Announcements.Queries.ScrapAnnouncements;
 
 using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider;
+using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Actions;
+using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider.DTOs.Selectors;
 using AnyTime.Core.Application.Contracts.Repositories;
-using AnyTime.Core.Application.Models.Headless;
-using AnyTime.Core.Application.Models.Headless.Selectors;
 using AnyTime.Core.Domain.Modules.Jobs;
 
 public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99FreelasAnnouncementsQuery, List<Announcement>>
@@ -31,11 +30,11 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
 
 
 
-    var existentLinks = await _announcementsRepository.GetUrls();
+    var existentLinks = await _announcementsRepository.GetUrlsByPlatform(AnnouncementPlatform.NineNineFreelas);
 
     var links = new List<string>();
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
     {
       links.AddRange(await GetAnnoucementsUrls(existentLinks: existentLinks.Union(links).ToList(), queryParams: $"&page={i}"));
     }
@@ -56,7 +55,7 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
 
     var container = "body > div.page-simple-wrapper > div.page-simple-content.box-projects > div.projects-result > ul > li";
 
-    var links = await this._headlessProvider.GetElementsByEvaluateFunction<string>(new GetElementsByEvaluateFunction
+    var links = await this._headlessProvider.GetAllByFunctionEvaluation<string>(new GetAllByFunctionEvaluation
     {
       target = container,
       script = @"(container) => {
@@ -93,28 +92,38 @@ public class Scrap99FreelasAnnouncementsQueryHandler : IRequestHandler<Scrap99Fr
     {
       await this._headlessProvider.GoTo(new GoTo { url = link });
 
-      var title = await this._headlessProvider.GetText(new GetText
+      var titleExists = await this._headlessProvider.GetText(new GetText
       {
         target = $"{container} > h1 > span.nomeProjeto",
         maxSelectorTimeout = 2000
       });
 
-      var description = await this._headlessProvider.GetText(new GetText
+      var descriptionExists = await this._headlessProvider.GetText(new GetText
       {
         target = $"{container} > div:nth-child(4) > div",
         maxSelectorTimeout = 2000
       });
 
-      if (description is null)
+      if (descriptionExists.IsLeft())
       {
-        description = await this._headlessProvider.GetText(new GetText
+        descriptionExists = await this._headlessProvider.GetText(new GetText
         {
           target = $"{container} > div:nth-child(5) > div",
           maxSelectorTimeout = 2000
         });
       }
 
-      announcements.Add(new Announcement(title, description, new List<string>(), link, new Author("-", "-")));
+      if (titleExists.IsLeft() && descriptionExists.IsLeft())
+      {
+        continue;
+      }
+
+      announcements.Add(new Announcement(titleExists.right,
+                                         descriptionExists.right,
+                                         new List<string>(),
+                                         link,
+                                         new Author("-", "-"),
+                                         AnnouncementPlatform.NineNineFreelas));
     };
 
     return announcements;

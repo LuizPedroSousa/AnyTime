@@ -17,7 +17,7 @@ public static class PersistenceServicesRegistration
       options.UseNpgsql(configuration.GetConnectionString("PersistenceConnectionString"));
     });
 
-    services.AddScoped(typeof(GenericRepository<,>), typeof(EFCoreGenericRepository<,>));
+    services.AddScoped(typeof(GenericRepository<>), typeof(EFCoreGenericRepository<>));
     services.AddScoped<ProposalsRepository, EFCoreProposalsRepository>();
     services.AddScoped<AnnouncementsRepository, EFCoreAnnouncementsRepository>();
     services.AddScoped<JobsRepository, EFCoreJobsRepository>();
