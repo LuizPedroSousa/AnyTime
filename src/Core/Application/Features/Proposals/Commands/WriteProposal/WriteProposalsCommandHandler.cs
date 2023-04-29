@@ -32,7 +32,7 @@ public class CreateProposalsCommandHandler : IRequestHandler<WriteProposalsComma
     {
       await this._markdownProvider.Write(new WriteModel
       {
-        folder = $"proposals/{job.status}/",
+        folder = $"proposals/{job.proposal.announcement.platform.ToString()}/{job.status}/",
         filename = $"{job.id}.md",
         content = @$"
 ## Announcement
@@ -48,10 +48,10 @@ public class CreateProposalsCommandHandler : IRequestHandler<WriteProposalsComma
 
 {job.proposal.announcement.url}
 
-# Proposal {job.proposal.id}
+# Proposal {job?.proposal?.id}
 
 ## Description
-{job.proposal.description}
+{job?.proposal?.description}
 {plans}"
       });
     }

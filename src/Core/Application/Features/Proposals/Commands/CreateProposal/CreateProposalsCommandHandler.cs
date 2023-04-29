@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using MediatR;
 
 namespace AnyTime.Core.Application.Features.Proposals.Commands.CreateProposal;
@@ -28,20 +27,11 @@ public class CreateProposalsCommandHandler : IRequestHandler<CreateProposalsComm
   {
     var curriculum = await this._markdownProvider.ParseToString("curriculum.md");
 
-    var announcements = new List<Announcement>();
-
-    foreach (Announcement announcement in request.announcements)
-    {
-      if (await ValidateAnnouncement(announcement, curriculum, request.platform))
-      {
-        announcements.Add(announcement);
-      }
-    }
 
     var proposals = new List<Proposal>();
     var proposal_template = await this._markdownProvider.ParseToString($"proposals/templates/{request.proposal_template}");
 
-    foreach (Announcement announcement in announcements)
+    foreach (Announcement announcement in request.announcements)
     {
       var proposal_description = await this._nLPProvider.AskQuestion(@$"
         Vou pedir que você preencha uma proposta porém na sua resposta quero que:
@@ -57,32 +47,12 @@ public class CreateProposalsCommandHandler : IRequestHandler<CreateProposalsComm
       ");
 
       proposals.Add(new Proposal(3000, proposal_description, announcement));
+
+      await Task.Delay(60000 * 3);
     }
 
     await this._proposalsRepository.CreateMany(proposals);
 
     return proposals;
-  }
-
-  private async Task<bool> ValidateAnnouncement(Announcement announcement, string curriculum, string platform)
-  {
-
-    var question = @$"
-Por favor com base no meu curriculo retorne um boleano onde true para quando for viavel aplicar e false para quando não for viavel aplicar
-Quero um projeto rapido com no máximo 6 dias de duração.
-
- Este é meu curriculo:
- ""{curriculum}""
- Este é uma anúncio de freelancing:
- ""{announcement}""";
-
-    var response = await this._nLPProvider.AskQuestion(question);
-
-    if (Regex.IsMatch(response, @"False"))
-    {
-      return false;
-    }
-
-    return true;
   }
 }
