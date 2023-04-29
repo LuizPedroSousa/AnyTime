@@ -6,12 +6,12 @@ namespace AnyTime.Infrastructure.Persistence.Repositories;
 
 using AnyTime.Core.Application.Contracts.Repositories;
 using AnyTime.Core.Domain.Modules.Jobs;
-using AnyTime.Core.Domain.Modules.Jobs.Exceptions;
+using AnyTime.Core.Domain.Shared;
 using AnyTime.Infrastructure.Persistence.DatabaseContext;
 
-public class EFCoreProposalsRepository : EFCoreGenericRepository<ProposalNotFoundException, Proposal>, ProposalsRepository
+public class EFCoreProposalsRepository : EFCoreGenericRepository<Proposal>, ProposalsRepository
 {
-  public EFCoreProposalsRepository(PersistenceDatabaseContext context) : base(context)
+  public EFCoreProposalsRepository(PersistenceDatabaseContext context) : base(context, new NotFoundException("Proposals not found"))
   {
   }
 
