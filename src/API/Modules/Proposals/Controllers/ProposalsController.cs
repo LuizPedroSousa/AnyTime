@@ -10,12 +10,12 @@ namespace AnyTime.API.Modules.Proposals.Controllers;
 
 [ApiController]
 [Route("/proposals")]
-public class AnnouncementsController : ControllerBase
+public class ProposalsController : ControllerBase
 {
-  private readonly ILogger<AnnouncementsController> _logger;
+  private readonly ILogger<ProposalsController> _logger;
   private readonly IMediator _mediator;
 
-  public AnnouncementsController(ILogger<AnnouncementsController> logger, IMediator mediator)
+  public ProposalsController(ILogger<ProposalsController> logger, IMediator mediator)
   {
     _logger = logger;
     _mediator = mediator;

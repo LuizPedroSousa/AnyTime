@@ -2,11 +2,11 @@ using AnyTime.API.Modules.Announcements.Controllers.DTOs;
 using AnyTime.Core.Domain.Modules.Announcements;
 using AutoMapper;
 
-namespace AnyTime.Core.Application.Features.Proposals.Commands.UpdateProposal.Mappings;
+namespace AnyTime.API.Modules.Announcements.Mappings;
 
-public class ProposalProfile : Profile
+public class AnnouncementProfile : Profile
 {
-  public ProposalProfile()
+  public AnnouncementProfile()
   {
     CreateMap<Announcement, AnnouncementDTO>().ForMember(announcement => announcement.status, options =>
     {

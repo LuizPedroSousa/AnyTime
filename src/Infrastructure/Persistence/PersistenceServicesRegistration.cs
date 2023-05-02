@@ -17,6 +17,11 @@ public static class PersistenceServicesRegistration
       options.UseNpgsql(configuration.GetConnectionString("PersistenceConnectionString"));
     });
 
+    services.AddDbContext<AuthenticationDatabaseContext>(options =>
+    {
+      options.UseNpgsql(configuration.GetConnectionString("AuthenticationConnectionString"));
+    });
+
     services.AddScoped(typeof(GenericRepository<>), typeof(EFCoreGenericRepository<>));
     services.AddScoped<ProposalsRepository, EFCoreProposalsRepository>();
     services.AddScoped<AnnouncementsRepository, EFCoreAnnouncementsRepository>();

@@ -1,24 +1,18 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using AnyTime.Infrastructure.Persistence;
 
 namespace AnyTime.Infrastructure;
 
-using AnyTime.Core.Application.Contracts.Providers.HeadlessProvider;
-using AnyTime.Core.Application.Contracts.Providers.MarkdownProvider;
-using AnyTime.Core.Application.Contracts.Providers.NLPProvider;
-using AnyTime.Infrastructure.Persistence;
-using AnyTime.Infrastructure.Providers.Headless;
-using AnyTime.Infrastructure.Providers.Markdown;
-using AnyTime.Infrastructure.Providers.NLP;
+using AnyTime.Infrastructure.Providers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class InfrastructureRegistrationServices
 {
   public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
-    services.AddScoped<HeadlessProvider, PuppeteerHeadlessProvider>();
-    services.AddScoped<MarkdownProvider, MarkdigMarkdownProvider>();
-    services.AddScoped<NLPProvider, GPTNLPProvider>();
     services.ConfigurePersistenceServices(configuration);
+    services.ConfigureProvidersServices(configuration);
+
     return services;
   }
 }
