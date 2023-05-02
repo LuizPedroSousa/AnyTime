@@ -8,11 +8,10 @@ using AnyTime.Core.Domain.Modules.Announcements;
 using AnyTime.Core.Domain.Modules.Platforms;
 using AnyTime.Core.Domain.Modules.Proposals;
 using AnyTime.Core.Domain.Shared;
+using AnyTime.Infrastructure.Persistence.Configurations;
 
 public class PersistenceDatabaseContext : DbContext
 {
-
-
   public DbSet<Job> jobs { get; set; }
   public DbSet<Author> authors { get; set; }
   public DbSet<Announcement> announcements { get; set; }
@@ -23,11 +22,15 @@ public class PersistenceDatabaseContext : DbContext
   {
   }
 
-  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  protected override void OnModelCreating(ModelBuilder builder)
   {
-    modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceDatabaseContext).Assembly);
 
-    base.OnModelCreating(modelBuilder);
+    builder.ApplyConfiguration(new AnnouncementConfiguration());
+    builder.ApplyConfiguration(new AuthorConfiguration());
+    builder.ApplyConfiguration(new JobConfiguration());
+    builder.ApplyConfiguration(new PlatformConfiguration());
+    builder.ApplyConfiguration(new ProposalConfiguration());
+    base.OnModelCreating(builder);
   }
 
   public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
